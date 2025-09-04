@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AG Gifts - Gift Items</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset and Basics */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    /* Category Menu */
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+    /* Slider */
+    .slider {
+      max-width: 1200px;
+      margin: 20px auto;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      padding: 10px;
+    }
+    .slider::-webkit-scrollbar {
+      height: 8px;
+    }
+    .slider::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    .slider::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .product-card {
+      display: inline-block;
+      width: 200px;
+      margin-right: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product-price {
+      font-size: 1.1rem;
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .product-name {
+      font-size: 1rem;
+      color: #333;
+      white-space: normal;
+    }
+    /* Main Container */
+    .main-container {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+      margin-top: 20px;
+    }
+    /* Filter Sidebar */
+    .filter-sidebar {
+      width: 250px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .filter-sidebar h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .filter-group {
+      margin-bottom: 20px;
+    }
+    .filter-group h4 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    .filter-group label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    .filter-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    /* Items Grid */
+    .items-container {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .item-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .item-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .item-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    .item-card p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .item-card button {
+      padding: 8px 15px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .item-card button:hover {
+      background: #218838;
+    }
+    /* Footer */
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer a {
+      color: #febd69;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .filter-sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+      }
+      .items-container {
+        margin-left: 0;
+      }
+      .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+      }
+      .product-card {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="ag-logo.jpg" alt="AG Logo">
+      </a>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for gift items...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+  <div class="slider">
+    <div class="product-card"><img src="gift-mug-1-299.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹299</div><div class="product-name">Personalized Mug</div></div>
+    <div class="product-card"><img src="gift-frame-2-499.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹499</div><div class="product-name">Photo Frame</div></div>
+    <div class="product-card"><img src="gift-jewelry-3-1299.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1299</div><div class="product-name">Silver Necklace</div></div>
+    <div class="product-card"><img src="gift-mug-4-349.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹349</div><div class="product-name">Holiday Mug</div></div>
+    <div class="product-card"><img src="gift-frame-5-599.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹599</div><div class="product-name">Wooden Photo Frame</div></div>
+    <div class="product-card"><img src="gift-jewelry-6-1999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1999</div><div class="product-name">Gold Bracelet</div></div>
+    <div class="product-card"><img src="gift-mug-7-399.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹399</div><div class="product-name">Ceramic Mug</div></div>
+    <div class="product-card"><img src="gift-frame-8-799.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹799</div><div class="product-name">Engraved Photo Frame</div></div>
+    <div class="product-card"><img src="gift-jewelry-9-1499.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1499</div><div class="product-name">Pendant Necklace</div></div>
+    <div class="product-card"><img src="gift-mug-10-449.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹449</div><div class="product-name">Custom Mug</div></div>
+  </div>
+  <div class="main-container">
+    <div class="filter-sidebar">
+      <h3>Filter Gift Items</h3>
+      <div class="filter-group">
+        <h4>Category</h4>
+        <label><input type="checkbox" name="category" value="Mug"> Mug</label>
+        <label><input type="checkbox" name="category" value="Photo Frame"> Photo Frame</label>
+        <label><input type="checkbox" name="category" value="Jewelry"> Jewelry</label>
+      </div>
+      <div class="filter-group">
+        <h4>Occasion</h4>
+        <label><input type="checkbox" name="occasion" value="Birthday"> Birthday</label>
+        <label><input type="checkbox" name="occasion" value="Anniversary"> Anniversary</label>
+        <label><input type="checkbox" name="occasion" value="Holiday"> Holiday</label>
+      </div>
+      <div class="filter-group">
+        <h4>Color</h4>
+        <label><input type="checkbox" name="color" value="Red"> Red</label>
+        <label><input type="checkbox" name="color" value="Blue"> Blue</label>
+        <label><input type="checkbox" name="color" value="Silver"> Silver</label>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <label><input type="checkbox" name="price" value="0-500"> ₹0 - ₹500</label>
+        <label><input type="checkbox" name="price" value="501-1000"> ₹501 - ₹1000</label>
+        <label><input type="checkbox" name="price" value="1001+"> ₹1001+</label>
+      </div>
+      <div class="filter-group">
+        <h4>Material</h4>
+        <label><input type="checkbox" name="material" value="Ceramic"> Ceramic</label>
+        <label><input type="checkbox" name="material" value="Wood"> Wood</label>
+        <label><input type="checkbox" name="material" value="Metal"> Metal</label>
+      </div>
+    </div>
+    <div class="items-container">
+      <h2>Gift Items</h2>
+      <div class="items-grid" id="items-grid"></div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    <p><i class="fas fa-envelope"></i> support@aggifts.com</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com" target="_blank">@aggifts</a></p>
+  </footer>
+  <script>
+    const giftItems = [
+      { id: 1, name: 'Personalized Mug', price: 299, imgSrc: 'gift-mug-1-299.jpg', category: 'Mug', occasion: 'Birthday', color: 'Red', material: 'Ceramic' },
+      { id: 2, name: 'Photo Frame', price: 499, imgSrc: 'gift-frame-2-499.jpg', category: 'Photo Frame', occasion: 'Anniversary', color: 'Silver', material: 'Wood' },
+      { id: 3, name: 'Silver Necklace', price: 1299, imgSrc: 'gift-jewelry-3-1299.jpg', category: 'Jewelry', occasion: 'Holiday', color: 'Silver', material: 'Metal' },
+      { id: 4, name: 'Holiday Mug', price: 349, imgSrc: 'gift-mug-4-349.jpg', category: 'Mug', occasion: 'Holiday', color: 'Blue', material: 'Ceramic' },
+      { id: 5, name: 'Wooden Photo Frame', price: 599, imgSrc: 'gift-frame-5-599.jpg', category: 'Photo Frame', occasion: 'Birthday', color: 'Red', material: 'Wood' },
+      { id: 6, name: 'Gold Bracelet', price: 1999, imgSrc: 'gift-jewelry-6-1999.jpg', category: 'Jewelry', occasion: 'Anniversary', color: 'Silver', material: 'Metal' },
+      { id: 7, name: 'Ceramic Mug', price: 399, imgSrc: 'gift-mug-7-399.jpg', category: 'Mug', occasion: 'Birthday', color: 'Blue', material: 'Ceramic' },
+      { id: 8, name: 'Engraved Photo Frame', price: 799, imgSrc: 'gift-frame-8-799.jpg', category: 'Photo Frame', occasion: 'Holiday', color: 'Silver', material: 'Wood' },
+      { id: 9, name: 'Pendant Necklace', price: 1499, imgSrc: 'gift-jewelry-9-1499.jpg', category: 'Jewelry', occasion: 'Birthday', color: 'Silver', material: 'Metal' },
+      { id: 10, name: 'Custom Mug', price: 449, imgSrc: 'gift-mug-10-449.jpg', category: 'Mug', occasion: 'Anniversary', color: 'Red', material: 'Ceramic' },
+      { id: 11, name: 'Vintage Photo Frame', price: 699, imgSrc: 'gift-frame-11-699.jpg', category: 'Photo Frame', occasion: 'Holiday', color: 'Blue', material: 'Wood' },
+      { id: 12, name: 'Earrings Set', price: 999, imgSrc: 'gift-jewelry-12-999.jpg', category: 'Jewelry', occasion: 'Birthday', color: 'Silver', material: 'Metal' },
+      { id: 13, name: 'Festive Mug', price: 499, imgSrc: 'gift-mug-13-499.jpg', category: 'Mug', occasion: 'Holiday', color: 'Red', material: 'Ceramic' },
+      { id: 14, name: 'Classic Photo Frame', price: 549, imgSrc: 'gift-frame-14-549.jpg', category: 'Photo Frame', occasion: 'Anniversary', color: 'Silver', material: 'Wood' },
+      { id: 15, name: 'Charm Bracelet', price: 1599, imgSrc: 'gift-jewelry-15-1599.jpg', category: 'Jewelry', occasion: 'Holiday', color: 'Silver', material: 'Metal' },
+      { id: 16, name: 'Printed Mug', price: 399, imgSrc: 'gift-mug-16-399.jpg', category: 'Mug', occasion: 'Birthday', color: 'Blue', material: 'Ceramic' },
+      { id: 17, name: 'Modern Photo Frame', price: 649, imgSrc: 'gift-frame-17-649.jpg', category: 'Photo Frame', occasion: 'Birthday', color: 'Red', material: 'Wood' }
+    ];
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function addToCart(itemId) {
+      const item = giftItems.find(i => i.id === itemId);
+      if (!item) return;
+      const cart = getCart();
+      const existingItem = cart.find(i => i.id === itemId);
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+      saveCart(cart);
+      updateCartCount();
+      alert(`${item.name} added to cart!`);
+    }
+    function filterItems() {
+      const filters = {
+        category: Array.from(document.querySelectorAll('input[name="category"]:checked')).map(input => input.value),
+        occasion: Array.from(document.querySelectorAll('input[name="occasion"]:checked')).map(input => input.value),
+        color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(input => input.value),
+        price: Array.from(document.querySelectorAll('input[name="price"]:checked')).map(input => input.value),
+        material: Array.from(document.querySelectorAll('input[name="material"]:checked')).map(input => input.value)
+      };
+      const filteredItems = giftItems.filter(item => {
+        const matchesCategory = filters.category.length === 0 || filters.category.includes(item.category);
+        const matchesOccasion = filters.occasion.length === 0 || filters.occasion.includes(item.occasion);
+        const matchesColor = filters.color.length === 0 || filters.color.includes(item.color);
+        const matchesMaterial = filters.material.length === 0 || filters.material.includes(item.material);
+        const matchesPrice = filters.price.length === 0 || filters.price.some(range => {
+          const price = parseFloat(item.price);
+          if (range === '0-500') return price <= 500;
+          if (range === '501-1000') return price > 500 && price <= 1000;
+          if (range === '1001+') return price > 1000;
+          return false;
+        });
+        return matchesCategory && matchesOccasion && matchesColor && matchesPrice && matchesMaterial;
+      });
+      displayItems(filteredItems);
+    }
+    function displayItems(items) {
+      const itemsGrid = document.getElementById('items-grid');
+      itemsGrid.innerHTML = '';
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'item-card';
+        div.innerHTML = `
+          <img src="${item.imgSrc}" alt="${item.name}" onclick="redirectToProduct(this)"/>
+          <h3>${item.name}</h3>
+          <p>Price: ₹${item.price}</p>
+          <p>Occasion: ${item.occasion}</p>
+          <p>Color: ${item.color}</p>
+          <p>Material: ${item.material}</p>
+          <button onclick="addToCart(${item.id})">Add to Cart</button>
+        `;
+        itemsGrid.appendChild(div);
+      });
+    }
+    function redirectToProduct(imgElement) {
+      const card = imgElement.parentElement;
+      const imgSrc = imgElement.src;
+      const name = card.querySelector('.product-name') ? card.querySelector('.product-name').textContent : card.querySelector('h3').textContent;
+      const price = card.querySelector('.product-price') ? card.querySelector('.product-price').textContent : card.querySelector('p').textContent.replace('Price: ', '');
+      const params = new URLSearchParams({
+        img: imgSrc,
+        name: name,
+        price: price
+      });
+      window.location.href = `product.html?${params.toString()}`;
+    }
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+    document.querySelectorAll('.filter-group input').forEach(input => {
+      input.addEventListener('change', filterItems);
+    });
+    window.onload = () => {
+      displayItems(giftItems);
+      updateCartCount();
+    };
+  </script>
+</body>
+</html>

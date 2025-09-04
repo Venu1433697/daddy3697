@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AG Clothing - Register & Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+    .auth-container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .auth-header h1 {
+      font-size: 2rem;
+      color: #232f3e;
+    }
+    .auth-header p {
+      color: #555;
+      font-size: 1.1rem;
+    }
+    .auth-form {
+      background: #f1f1f1;
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .auth-form:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .auth-form h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #232f3e;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .auth-form button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .auth-form button:hover {
+      background: #218838;
+    }
+    .toggle-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .toggle-link a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .toggle-link a:hover {
+      text-decoration: underline;
+    }
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer a {
+      color: #febd69;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .auth-container {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="ag-logo.jpg" alt="AG Logo">
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for products...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+  <div class="auth-container">
+    <div class="auth-header">
+      <h1>Register or Login</h1>
+      <p>Create an account or sign in to manage your orders.</p>
+    </div>
+    <div class="auth-form" id="register-form">
+      <h2>Register</h2>
+      <div class="form-group">
+        <label for="register-name">Name</label>
+        <input type="text" id="register-name" placeholder="Enter your name..." required>
+      </div>
+      <div class="form-group">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" placeholder="Enter your email..." required>
+      </div>
+      <div class="form-group">
+        <label for="register-mobile">Mobile Number</label>
+        <input type="tel" id="register-mobile" placeholder="Enter your mobile number..." pattern="[0-9]{10}" required>
+      </div>
+      <div class="form-group">
+        <label for="register-password">Password</label>
+        <input type="password" id="register-password" placeholder="Enter your password..." required>
+      </div>
+      <button id="register-submit">Submit</button>
+      <div class="toggle-link">
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+      </div>
+    </div>
+    <div class="auth-form" id="login-form" style="display: none;">
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="login-mobile">Mobile Number</label>
+        <input type="tel" id="login-mobile" placeholder="Enter your mobile number..." pattern="[0-9]{10}" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password..." required>
+      </div>
+      <button id="login-submit">Login</button>
+      <div class="toggle-link">
+        <p>Need an account? <a href="#" id="show-register">Register</a></p>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    <p><i class="fas fa-envelope"></i> support@agclothing.com</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com" target="_blank">@agclothing</a></p>
+  </footer>
+  <script>
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('users') || '[]');
+    }
+    function saveUsers(users) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+    function showRegisterForm() {
+      document.getElementById('register-form').style.display = 'block';
+      document.getElementById('login-form').style.display = 'none';
+    }
+    function showLoginForm() {
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+    }
+
+    document.getElementById('register-submit').addEventListener('click', () => {
+      const name = document.getElementById('register-name').value.trim();
+      const email = document.getElementById('register-email').value.trim();
+      const mobile = document.getElementById('register-mobile').value.trim();
+      const password = document.getElementById('register-password').value.trim();
+
+      if (!name || !email || !mobile || !password) {
+        alert('Please fill in all fields.');
+        return;
+      }
+      if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long.');
+        return;
+      }
+
+      const users = getUsers();
+      if (users.some(user => user.email === email)) {
+        alert('This email is already registered.');
+        return;
+      }
+      if (users.some(user => user.mobile === mobile)) {
+        alert('This mobile number is already registered.');
+        return;
+      }
+
+      const user = { name, email, mobile, password };
+      users.push(user);
+      saveUsers(users);
+
+      const whatsappNumber = '+919398355147';
+      const message = `New User Registration:\n\nName: ${name}\nEmail: ${email}\nMobile Number: ${mobile}`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+      window.open(whatsappUrl, '_blank');
+
+      setTimeout(() => {
+        alert('Registration successful! Your details have been sent to our WhatsApp. Redirecting to home page.');
+        document.getElementById('register-name').value = '';
+        document.getElementById('register-email').value = '';
+        document.getElementById('register-mobile').value = '';
+        document.getElementById('register-password').value = '';
+        window.location.href = 'index.html';
+      }, 1000);
+    });
+
+    document.getElementById('login-submit').addEventListener('click', () => {
+      const mobile = document.getElementById('login-mobile').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+
+      if (!mobile || !password) {
+        alert('Please fill in all fields.');
+        return;
+      }
+      if (!/^[0-9]{10}$/.test(mobile)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+
+      const users = getUsers();
+      const user = users.find(user => user.mobile === mobile && user.password === password);
+      if (!user) {
+        alert('Invalid mobile number or password.');
+        return;
+      }
+
+      alert('Login successful! Redirecting to home page.');
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('show-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      showLoginForm();
+    });
+    document.getElementById('show-register').addEventListener('click', (e) => {
+      e.preventDefault();
+      showRegisterForm();
+    });
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+    window.onload = () => {
+      updateCartCount();
+      showRegisterForm();
+    };
+  </script>
+</body>
+</html>

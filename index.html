@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumi Mart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset and Basics */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    /* Category Menu */
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+    /* Main Content */
+    .main-content {
+      padding: 20px;
+    }
+    .category-section {
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 10px;
+      display: block;
+    }
+    .category-section.hidden {
+      display: none;
+    }
+    .category-section h2 {
+      margin-bottom: 20px;
+      color: #232f3e;
+    }
+    /* Slider */
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding-bottom: 10px;
+      scroll-behavior: smooth;
+    }
+    .slider::-webkit-scrollbar {
+      height: 8px;
+    }
+    .slider::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+    .product-card {
+      background-color: white;
+      flex: 0 0 auto;
+      width: 180px;
+      border-radius: 8px;
+      text-align: center;
+      padding: 10px;
+      transition: transform 0.3s;
+      cursor: pointer;
+      display: block;
+    }
+    .product-card.hidden {
+      display: none;
+    }
+    .product-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .product-price {
+      color: green;
+      margin-top: 8px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .product-name {
+      margin-top: 4px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+    /* Different Backgrounds */
+    .clothes { background-color: #e0f7fa; }
+    .gifts { background-color: #ffe0b2; }
+    .mobiles { background-color: #f3e5f5; }
+    .laptops { background-color: #dcedc8; }
+    /* Footer */
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer a {
+      color: #febd69;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="Lumi-Mart-Logo.png" alt=" Logo">
+      </a>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for products...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+  <div class="main-content">
+    <section class="category-section clothes">
+      <h2>Clothes</h2>
+      <div class="slider">
+        <div class="product-card"><img src="T-gray-1-279.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1200</div><div class="product-name">Stylish Shirt</div></div>
+        <div class="product-card"><img src="T-black-1-279.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2000</div><div class="product-name">Elegant Dress</div></div>
+        <div class="product-card"><img src="T-pink-2-298.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3500</div><div class="product-name">Cool Jacket</div></div>
+        <div class="product-card"><img src="T-gray-2.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1800</div><div class="product-name">Blue Jeans</div></div>
+        <div class="product-card"><img src="T-gray-3-399.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2200</div><div class="product-name">Trendy Hoodie</div></div>
+        <div class="product-card"><img src="T-green-1-279.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹800</div><div class="product-name">Basic T-shirt</div></div>
+        <div class="product-card"><img src="T-green-2-399.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1500</div><div class="product-name">Casual Skirt</div></div>
+        <div class="product-card"><img src="T-pink-1-395.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4000</div><div class="product-name">Winter Coat</div></div>
+        <div class="product-card"><img src="T-white-1-279.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4800</div><div class="product-name">Formal Blazer</div></div>
+        <div class="product-card"><img src="T-blue-1-399.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">Fashion Wear</div></div>
+      </div>
+    </section>
+    <section class="category-section gifts">
+      <h2>Gift Items</h2>
+      <div class="slider">
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?giftbox" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹700</div><div class="product-name">Gift Box</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?flowers" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹900</div><div class="product-name">Fresh Flowers</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?teddybear" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1500</div><div class="product-name">Teddy Bear</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?handbag" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2200</div><div class="product-name">Luxury Handbag</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?watch" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3000</div><div class="product-name">Wrist Watch</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?cake" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹500</div><div class="product-name">Birthday Cake</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?perfume" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2500</div><div class="product-name">Fragrance Perfume</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?photoalbum" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1200</div><div class="product-name">Photo Album</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?lamp" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2000</div><div class="product-name">Decor Lamp</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?book" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹1800</div><div class="product-name">Gift Book</div></div>
+      </div>
+    </section>
+    <section class="category-section mobiles">
+      <h2>Mobiles</h2>
+      <div class="slider">
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?mobile" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">Smartphone</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?iphone" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">iPhone 15</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?android" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4800</div><div class="product-name">Android Phone</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?samsung" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4500</div><div class="product-name">Samsung Mobile</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?pixel" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4300</div><div class="product-name">Pixel Phone</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?nokia" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3000</div><div class="product-name">Nokia Mobile</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?oneplus" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4000</div><div class="product-name">OnePlus Phone</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?motorola" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3200</div><div class="product-name">Motorola Mobile</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?oppo" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2900</div><div class="product-name">Oppo Phone</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?vivo" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹2800</div><div class="product-name">Vivo Mobile</div></div>
+      </div>
+    </section>
+    <section class="category-section laptops">
+      <h2>Laptops</h2>
+      <div class="slider">
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?laptop" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">Business Laptop</div></div>
+        <div class="product-card"><img src="ag-logo.png" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">Generic Laptop</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?macbook" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">Apple MacBook</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?notebook" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4600</div><div class="product-name">Notebook Laptop</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?dell" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4200</div><div class="product-name">Dell Laptop</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?hp" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹4000</div><div class="product-name">HP Laptop</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?lenovo" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3900</div><div class="product-name">Lenovo Laptop</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?acer" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3700</div><div class="product-name">Acer Laptop</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?chromebook" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹3500</div><div class="product-name">Chromebook</div></div>
+        <div class="product-card"><img src="https://source.unsplash.com/featured/?ultrabook" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹5000</div><div class="product-name">Ultrabook</div></div>
+      </div>
+    </section>
+  </div>
+  <footer class="footer">
+    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    <p><i class="fas fa-envelope"></i> support@agclothing.com</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com" target="_blank">@agclothing</a></p>
+  </footer>
+  <script>
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+    function redirectToProduct(imgElement) {
+      const card = imgElement.parentElement;
+      const imgSrc = imgElement.src;
+      const name = card.querySelector('.product-name').textContent;
+      const price = card.querySelector('.product-price').textContent;
+      const params = new URLSearchParams({
+        img: imgSrc,
+        name: name,
+        price: price
+      });
+      window.location.href = `product.html?${params.toString()}`;
+    }
+    function addToCart(card) {
+      const img = card.querySelector('img').src;
+      const name = card.querySelector('.product-name').textContent;
+      const price = card.querySelector('.product-price').textContent;
+      const size = 'M';
+      const quantity = 1;
+      const item = { name, price, imgSrc: img, size, quantity };
+      const cart = getCart();
+      cart.push(item);
+      saveCart(cart);
+      updateCartCount();
+      alert(`"${name}" added to cart!`);
+    }
+    function filterProducts() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      const sections = document.querySelectorAll('.category-section');
+      sections.forEach(section => {
+        const categoryName = section.querySelector('h2').textContent.toLowerCase();
+        const products = section.querySelectorAll('.product-card');
+        let hasVisibleProducts = false;
+        products.forEach(product => {
+          const productName = product.querySelector('.product-name').textContent.toLowerCase();
+          if (productName.includes(query) || categoryName.includes(query)) {
+            product.classList.remove('hidden');
+            hasVisibleProducts = true;
+          } else {
+            product.classList.add('hidden');
+          }
+        });
+        if (hasVisibleProducts || categoryName.includes(query)) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+    }
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('search');
+      if (query) {
+        document.getElementById('search-input').value = query;
+        filterProducts();
+      }
+      updateCartCount();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AG Electronics - Laptops</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset and Basics */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    /* Category Menu */
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+    /* Slider */
+    .slider {
+      max-width: 1200px;
+      margin: 20px auto;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      padding: 10px;
+    }
+    .slider::-webkit-scrollbar {
+      height: 8px;
+    }
+    .slider::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    .slider::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .product-card {
+      display: inline-block;
+      width: 200px;
+      margin-right: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product-price {
+      font-size: 1.1rem;
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .product-name {
+      font-size: 1rem;
+      color: #333;
+      white-space: normal;
+    }
+    /* Main Container */
+    .main-container {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+      margin-top: 20px;
+    }
+    /* Filter Sidebar */
+    .filter-sidebar {
+      width: 250px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .filter-sidebar h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .filter-group {
+      margin-bottom: 20px;
+    }
+    .filter-group h4 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    .filter-group label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    .filter-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    /* Items Grid */
+    .items-container {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .item-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .item-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .item-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    .item-card p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .item-card button {
+      padding: 8px 15px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .item-card button:hover {
+      background: #218838;
+    }
+    /* Footer */
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer a {
+      color: #febd69;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .filter-sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+      }
+      .items-container {
+        margin-left: 0;
+      }
+      .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .product-card {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="ag-logo.jpg" alt="AG Logo">
+      </a>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for laptops...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+  <div class="slider">
+    <div class="product-card"><img src="laptop-dell-1-59999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹59999</div><div class="product-name">Dell XPS 13</div></div>
+    <div class="product-card"><img src="laptop-apple-2-79999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹79999</div><div class="product-name">MacBook Air</div></div>
+    <div class="product-card"><img src="laptop-hp-3-49999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹49999</div><div class="product-name">HP Pavilion</div></div>
+    <div class="product-card"><img src="laptop-lenovo-4-89999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹89999</div><div class="product-name">Lenovo ThinkPad</div></div>
+    <div class="product-card"><img src="laptop-asus-5-64999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹64999</div><div class="product-name">Asus VivoBook</div></div>
+    <div class="product-card"><img src="laptop-apple-6-119999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹119999</div><div class="product-name">MacBook Pro</div></div>
+    <div class="product-card"><img src="laptop-acer-7-54999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹54999</div><div class="product-name">Acer Aspire</div></div>
+    <div class="product-card"><img src="laptop-dell-8-69999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹69999</div><div class="product-name">Dell Inspiron</div></div>
+    <div class="product-card"><img src="laptop-hp-9-84999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹84999</div><div class="product-name">HP Spectre</div></div>
+    <div class="product-card"><img src="laptop-lenovo-10-99999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹99999</div><div class="product-name">Lenovo Yoga</div></div>
+  </div>
+  <div class="main-container">
+    <div class="filter-sidebar">
+      <h3>Filter Laptops</h3>
+      <div class="filter-group">
+        <h4>Brand</h4>
+        <label><input type="checkbox" name="brand" value="Dell"> Dell</label>
+        <label><input type="checkbox" name="brand" value="Apple"> Apple</label>
+        <label><input type="checkbox" name="brand" value="HP"> HP</label>
+        <label><input type="checkbox" name="brand" value="Lenovo"> Lenovo</label>
+      </div>
+      <div class="filter-group">
+        <h4>Storage</h4>
+        <label><input type="checkbox" name="storage" value="256GB"> 256GB</label>
+        <label><input type="checkbox" name="storage" value="512GB"> 512GB</label>
+        <label><input type="checkbox" name="storage" value="1TB"> 1TB</label>
+      </div>
+      <div class="filter-group">
+        <h4>RAM</h4>
+        <label><input type="checkbox" name="ram" value="8GB"> 8GB</label>
+        <label><input type="checkbox" name="ram" value="16GB"> 16GB</label>
+        <label><input type="checkbox" name="ram" value="32GB"> 32GB</label>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <label><input type="checkbox" name="price" value="0-50000"> ₹0 - ₹50,000</label>
+        <label><input type="checkbox" name="price" value="50001-100000"> ₹50,001 - ₹100,000</label>
+        <label><input type="checkbox" name="price" value="100001+"> ₹100,001+</label>
+      </div>
+      <div class="filter-group">
+        <h4>Operating System</h4>
+        <label><input type="checkbox" name="os" value="Windows"> Windows</label>
+        <label><input type="checkbox" name="os" value="macOS"> macOS</label>
+      </div>
+    </div>
+    <div class="items-container">
+      <h2>Laptops</h2>
+      <div class="items-grid" id="items-grid"></div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    <p><i class="fas fa-envelope"></i> support@agelectronics.com</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com" target="_blank">@agelectronics</a></p>
+  </footer>
+  <script>
+    const laptopItems = [
+      { id: 1, name: 'Dell XPS 13', price: 59999, imgSrc: 'laptop-dell-1-59999.jpg', brand: 'Dell', storage: '512GB', ram: '16GB', os: 'Windows' },
+      { id: 2, name: 'MacBook Air', price: 79999, imgSrc: 'laptop-apple-2-79999.jpg', brand: 'Apple', storage: '256GB', ram: '8GB', os: 'macOS' },
+      { id: 3, name: 'HP Pavilion', price: 49999, imgSrc: 'laptop-hp-3-49999.jpg', brand: 'HP', storage: '512GB', ram: '8GB', os: 'Windows' },
+      { id: 4, name: 'Lenovo ThinkPad', price: 89999, imgSrc: 'laptop-lenovo-4-89999.jpg', brand: 'Lenovo', storage: '1TB', ram: '16GB', os: 'Windows' },
+      { id: 5, name: 'Asus VivoBook', price: 64999, imgSrc: 'laptop-asus-5-64999.jpg', brand: 'Asus', storage: '512GB', ram: '8GB', os: 'Windows' },
+      { id: 6, name: 'MacBook Pro', price: 119999, imgSrc: 'laptop-apple-6-119999.jpg', brand: 'Apple', storage: '1TB', ram: '16GB', os: 'macOS' },
+      { id: 7, name: 'Acer Aspire', price: 54999, imgSrc: 'laptop-acer-7-54999.jpg', brand: 'Acer', storage: '256GB', ram: '8GB', os: 'Windows' },
+      { id: 8, name: 'Dell Inspiron', price: 69999, imgSrc: 'laptop-dell-8-69999.jpg', brand: 'Dell', storage: '512GB', ram: '16GB', os: 'Windows' },
+      { id: 9, name: 'HP Spectre', price: 84999, imgSrc: 'laptop-hp-9-84999.jpg', brand: 'HP', storage: '1TB', ram: '16GB', os: 'Windows' },
+      { id: 10, name: 'Lenovo Yoga', price: 99999, imgSrc: 'laptop-lenovo-10-99999.jpg', brand: 'Lenovo', storage: '512GB', ram: '16GB', os: 'Windows' },
+      { id: 11, name: 'Asus ROG', price: 129999, imgSrc: 'laptop-asus-11-129999.jpg', brand: 'Asus', storage: '1TB', ram: '32GB', os: 'Windows' },
+      { id: 12, name: 'MacBook Air M2', price: 109999, imgSrc: 'laptop-apple-12-109999.jpg', brand: 'Apple', storage: '512GB', ram: '16GB', os: 'macOS' },
+      { id: 13, name: 'HP Envy', price: 79999, imgSrc: 'laptop-hp-13-79999.jpg', brand: 'HP', storage: '512GB', ram: '16GB', os: 'Windows' },
+      { id: 14, name: 'Dell Latitude', price: 74999, imgSrc: 'laptop-dell-14-74999.jpg', brand: 'Dell', storage: '256GB', ram: '8GB', os: 'Windows' },
+      { id: 15, name: 'Lenovo IdeaPad', price: 59999, imgSrc: 'laptop-lenovo-15-59999.jpg', brand: 'Lenovo', storage: '512GB', ram: '8GB', os: 'Windows' },
+      { id: 16, name: 'Acer Predator', price: 139999, imgSrc: 'laptop-acer-16-139999.jpg', brand: 'Acer', storage: '1TB', ram: '32GB', os: 'Windows' },
+      { id: 17, name: 'MacBook Pro M2', price: 149999, imgSrc: 'laptop-apple-17-149999.jpg', brand: 'Apple', storage: '1TB', ram: '32GB', os: 'macOS' }
+    ];
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function addToCart(itemId) {
+      const item = laptopItems.find(i => i.id === itemId);
+      if (!item) return;
+      const cart = getCart();
+      const existingItem = cart.find(i => i.id === itemId);
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+      saveCart(cart);
+      updateCartCount();
+      alert(`${item.name} added to cart!`);
+    }
+    function filterItems() {
+      const filters = {
+        brand: Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(input => input.value),
+        storage: Array.from(document.querySelectorAll('input[name="storage"]:checked')).map(input => input.value),
+        ram: Array.from(document.querySelectorAll('input[name="ram"]:checked')).map(input => input.value),
+        price: Array.from(document.querySelectorAll('input[name="price"]:checked')).map(input => input.value),
+        os: Array.from(document.querySelectorAll('input[name="os"]:checked')).map(input => input.value)
+      };
+      const filteredItems = laptopItems.filter(item => {
+        const matchesBrand = filters.brand.length === 0 || filters.brand.includes(item.brand);
+        const matchesStorage = filters.storage.length === 0 || filters.storage.includes(item.storage);
+        const matchesRAM = filters.ram.length === 0 || filters.ram.includes(item.ram);
+        const matchesOS = filters.os.length === 0 || filters.os.includes(item.os);
+        const matchesPrice = filters.price.length === 0 || filters.price.some(range => {
+          const price = parseFloat(item.price);
+          if (range === '0-50000') return price <= 50000;
+          if (range === '50001-100000') return price > 50000 && price <= 100000;
+          if (range === '100001+') return price > 100000;
+          return false;
+        });
+        return matchesBrand && matchesStorage && matchesRAM && matchesPrice && matchesOS;
+      });
+      displayItems(filteredItems);
+    }
+    function displayItems(items) {
+      const itemsGrid = document.getElementById('items-grid');
+      itemsGrid.innerHTML = '';
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'item-card';
+        div.innerHTML = `
+          <img src="${item.imgSrc}" alt="${item.name}" onclick="redirectToProduct(this)"/>
+          <h3>${item.name}</h3>
+          <p>Price: ₹${item.price}</p>
+          <p>Storage: ${item.storage}</p>
+          <p>RAM: ${item.ram}</p>
+          <p>OS: ${item.os}</p>
+          <button onclick="addToCart(${item.id})">Add to Cart</button>
+        `;
+        itemsGrid.appendChild(div);
+      });
+    }
+    function redirectToProduct(imgElement) {
+      const card = imgElement.parentElement;
+      const imgSrc = imgElement.src;
+      const name = card.querySelector('.product-name') ? card.querySelector('.product-name').textContent : card.querySelector('h3').textContent;
+      const price = card.querySelector('.product-price') ? card.querySelector('.product-price').textContent : card.querySelector('p').textContent.replace('Price: ', '');
+      const params = new URLSearchParams({
+        img: imgSrc,
+        name: name,
+        price: price
+      });
+      window.location.href = `product.html?${params.toString()}`;
+    }
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+    document.querySelectorAll('.filter-group input').forEach(input => {
+      input.addEventListener('change', filterItems);
+    });
+    window.onload = () => {
+      displayItems(laptopItems);
+      updateCartCount();
+    };
+  </script>
+</body>
+</html>

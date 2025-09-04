@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AG Clothing - Deliverable Items</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+    .deliverable-container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    .deliverable-items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .deliverable-item {
+      display: flex;
+      flex-direction: column;
+      background: #f1f1f1;
+      border-radius: 8px;
+      padding: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .deliverable-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .deliverable-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .deliverable-item-details {
+      flex: 1;
+      text-align: center;
+    }
+    .deliverable-item-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    .deliverable-item-details p {
+      margin: 5px 0;
+      color: #555;
+    }
+    .status-tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .status-on-the-way {
+      background-color: #ff9800;
+      color: white;
+    }
+    .status-delivered {
+      background-color: #28a745;
+      color: white;
+    }
+    .delivery-message {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+    .empty-deliverable {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #888;
+      padding: 20px;
+      grid-column: 1 / -1;
+    }
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer a {
+      color: #febd69;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .deliverable-items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .deliverable-item img {
+        height: 120px;
+      }
+    }
+    @media (max-width: 480px) {
+      .deliverable-items {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="ag-logo.jpg" alt="AG Logo">
+      </a>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for products...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+  <div class="deliverable-container">
+    <h2>Deliverable Items</h2>
+    <div class="delivery-message">These items are on the way or have been delivered!</div>
+    <div class="deliverable-items" id="deliverable-items"></div>
+    <div id="empty-deliverable" class="empty-deliverable" style="display: none;">No items have been ordered yet.</div>
+  </div>
+  <footer class="footer">
+    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    <p><i class="fas fa-envelope"></i> support@agclothing.com</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com" target="_blank">@agclothing</a></p>
+  </footer>
+  <script>
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+    function getDeliveredItems() {
+      return JSON.parse(localStorage.getItem('deliveredItems') || '[]');
+    }
+    function saveDeliveredItems(items) {
+      localStorage.setItem('deliveredItems', JSON.stringify(items));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      console.log('Cart items:', cart); // Debug: Log cart contents
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function updateOrderStatus() {
+      const deliveredItems = getDeliveredItems();
+      const fiveHours = 1 * 60 * 1000; // 5 hours in milliseconds
+      const now = Date.now();
+      deliveredItems.forEach(item => {
+        if (item.orderTimestamp && now - item.orderTimestamp >= fiveHours) {
+          item.status = 'Delivered';
+        } else if (!item.status) {
+          item.status = 'On the Way';
+        }
+      });
+      saveDeliveredItems(deliveredItems);
+      return deliveredItems;
+    }
+    function loadDeliveredItems() {
+      const deliveredItems = updateOrderStatus();
+      const deliverableItemsContainer = document.getElementById('deliverable-items');
+      const emptyDeliverable = document.getElementById('empty-deliverable');
+      deliverableItemsContainer.innerHTML = '';
+      console.log('Loading delivered items:', deliveredItems); // Debug: Log items
+      if (deliveredItems.length === 0) {
+        console.log('No delivered items, showing empty message');
+        emptyDeliverable.style.display = 'block';
+      } else {
+        emptyDeliverable.style.display = 'none';
+        deliveredItems.forEach((item, index) => {
+          console.log('Processing delivered item:', item); // Debug: Log each item
+          if (!item || !item.name || !item.price || !item.size || !item.quantity || !item.imgSrc) {
+            console.warn('Invalid item at index', index, ':', item);
+            return; // Skip invalid items
+          }
+          const div = document.createElement('div');
+          div.className = 'deliverable-item';
+          div.innerHTML = `
+            <img src="${item.imgSrc}" alt="${item.name}"/>
+            <div class="deliverable-item-details">
+              <h3>${item.name}</h3>
+              <p>Price: ${item.price}</p>
+              <p>Size: ${item.size}</p>
+              <p>Quantity: ${item.quantity}</p>
+              <span class="status-tag status-${item.status === 'Delivered' ? 'delivered' : 'on-the-way'}">${item.status}</span>
+            </div>
+          `;
+          deliverableItemsContainer.appendChild(div);
+        });
+      }
+    }
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+    window.onload = () => {
+      console.log('Deliverable page loaded'); // Debug: Log page load
+      loadDeliveredItems();
+      updateCartCount();
+      setInterval(loadDeliveredItems, 60 * 1000);
+    };
+  </script>
+</body>
+</html>

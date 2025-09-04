@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AG Clothing - Product Details</title>
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    /* Category Menu */
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+
+    .product-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .product-container {
+        flex-direction: row;
+      }
+    }
+
+    .image-section {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-section img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .details-section {
+      flex: 2;
+      padding: 30px;
+    }
+
+    .details-section h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: #ff9800;
+    }
+
+    .price-section {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .original-price {
+      text-decoration: line-through;
+      color: #888;
+      margin-right: 10px;
+    }
+
+    .discount {
+      color: red;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .final-price {
+      color: #28a745;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .delivery {
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .delivery p {
+      margin: 5px 0;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .offers {
+      margin-bottom: 20px;
+    }
+
+    .offers h4 {
+      margin-bottom: 10px;
+    }
+
+    .offers ul {
+      list-style: none;
+    }
+
+    .offers li {
+      margin-bottom: 6px;
+    }
+
+    .actions label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    .actions select,
+    .actions input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .actions button {
+      padding: 12px 20px;
+      margin-right: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .add-to-cart {
+      background-color: #ff9800;
+      color: white;
+    }
+
+    .buy-now {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .add-to-cart:hover {
+      background-color: #e68900;
+    }
+
+    .buy-now:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="ag-logo.jpg" alt="AG Logo">
+      </a>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for products...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+
+  <!-- Category Menu -->
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+
+  
+  <div class="product-container">
+    <div class="image-section">
+      <img src="T-pink-2-298.jpg" alt="Product Image" id="product-img"/>
+    </div>
+    <div class="details-section">
+      <h1 id="product-name">Product Name</h1>
+      <div class="rating">⭐ 4.0 | 15 ratings</div>
+
+      <div class="price-section">
+        <span class="original-price">₹1,999</span>
+        <span class="discount">-80%</span>
+        <span class="final-price" id="product-price">₹399</span>
+      </div>
+
+      <div class="delivery">
+        <p><strong>FREE delivery</strong> Monday, 19 May</p>
+        <p><span class="red">Order within 45 mins</span></p>
+      </div>
+
+      <div class="offers">
+        <h4>Available Offers:</h4>
+        <ul>
+          <li>💰 Upto ₹11 cashback with Amazon Pay</li>
+          <li>🏦 Upto ₹2,000 off on Credit Cards</li>
+          <li>🎁 Buy 2 get 5% off</li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <label for="size">Size:</label>
+        <select id="product-size">
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="product-quantity" value="1" min="1"/>
+
+        <button class="add-to-cart" id="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load cart from localStorage
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+
+    // Save cart to localStorage
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Update cart count
+    function updateCartCount() {
+      const cart = getCart();
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    // Get DOM elements
+    const addToCartBtn = document.getElementById('add-to-cart');
+    const cartIcon = document.getElementById('cart-icon');
+    const productImg = document.getElementById('product-img');
+    const productName = document.getElementById('product-name');
+    const productPrice = document.getElementById('product-price');
+
+    // Parse URL parameters to display product details
+    function loadProductDetails() {
+      const params = new URLSearchParams(window.location.search);
+      const imgSrc = params.get('img') || 'T-pink-2-298.jpg';
+      const name = params.get('name') || 'Product Name';
+      const price = params.get('price') || '₹399';
+
+      productImg.src = imgSrc;
+      productName.textContent = name;
+      productPrice.textContent = price;
+    }
+
+    // Add to cart functionality
+    addToCartBtn.addEventListener('click', () => {
+      const name = productName.textContent;
+      const price = productPrice.textContent;
+      const size = document.getElementById('product-size').value;
+      const quantity = parseInt(document.getElementById('product-quantity').value);
+      const imgSrc = productImg.src;
+
+      const cart = getCart();
+      cart.push({ name, price, size, quantity, imgSrc });
+      saveCart(cart);
+      updateCartCount();
+      alert(`"${name}" added to cart!`);
+    });
+
+    // Cart icon redirect to cart.html
+    cartIcon.addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+
+    // Search functionality (redirect to index.html)
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+
+    // Load product details and update cart on page load
+    loadProductDetails();
+    updateCartCount();
+  </script>
+</body>
+</html>

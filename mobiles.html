@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AG Mobiles - Mobile Phones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset and Basics */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+      color: #333;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+    }
+    .search-bar button {
+      padding: 8px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+    .cart i {
+      font-size: 24px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+    /* Category Menu */
+    .category-menu {
+      background-color: #37475a;
+      padding: 10px;
+      text-align: center;
+    }
+    .category-menu a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .category-menu a:hover {
+      text-decoration: underline;
+    }
+    /* Slider */
+    .slider {
+      max-width: 1200px;
+      margin: 20px auto;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      padding: 10px;
+    }
+    .slider::-webkit-scrollbar {
+      height: 8px;
+    }
+    .slider::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+    .slider::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .product-card {
+      display: inline-block;
+      width: 200px;
+      margin-right: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product-price {
+      font-size: 1.1rem;
+      color: #28a745;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .product-name {
+      font-size: 1rem;
+      color: #333;
+      white-space: normal;
+    }
+    /* Main Container */
+    .main-container {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+      margin-top: 20px;
+    }
+    /* Filter Sidebar */
+    .filter-sidebar {
+      width: 250px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .filter-sidebar h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .filter-group {
+      margin-bottom: 20px;
+    }
+    .filter-group h4 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    .filter-group label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    .filter-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    /* Items Grid */
+    .items-container {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .item-card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .item-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .item-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    .item-card p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .item-card button {
+      padding: 8px 15px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .item-card button:hover {
+      background: #218838;
+    }
+    /* Footer */
+    .footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer a {
+      color: #febd69;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .filter-sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+      }
+      .items-container {
+        margin-left: 0;
+      }
+      .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .product-card {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="ag-logo.jpg" alt="AG Logo">
+      </a>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for mobile phones...">
+      <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="cart" id="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <div class="cart-count" id="cart-count">0</div>
+    </div>
+  </nav>
+  <div class="category-menu">
+    <a href="index.html">Home</a>
+    <a href="clothes.html">Clothes</a>
+    <a href="gift-items.html">Gift Items</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="mens-wear.html">Men's Wear</a>
+    <a href="womens-wear.html">Women's Wear</a>
+    <a href="kids-wear.html">Kids' Wear</a>
+    <a href="fridges.html">Fridges</a>
+    <a href="tvs.html">TVs</a>
+    <a href="watches.html">Watches</a>
+    <a href="cart.html">Cart Items</a>
+    <a href="deliverable.html">Delivered Items</a>
+    <a href="contact.html">Contact & Support</a>
+  </div>
+  <div class="slider">
+    <div class="product-card"><img src="mobile-samsung-1-19999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹19999</div><div class="product-name">Samsung Galaxy A52</div></div>
+    <div class="product-card"><img src="mobile-xiaomi-2-9999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹9999</div><div class="product-name">Xiaomi Redmi 9</div></div>
+    <div class="product-card"><img src="mobile-apple-3-59999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹59999</div><div class="product-name">iPhone 13</div></div>
+    <div class="product-card"><img src="mobile-samsung-4-14999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹14999</div><div class="product-name">Samsung Galaxy M32</div></div>
+    <div class="product-card"><img src="mobile-xiaomi-5-15999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹15999</div><div class="product-name">Xiaomi Poco X3</div></div>
+    <div class="product-card"><img src="mobile-apple-6-79999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹79999</div><div class="product-name">iPhone 14</div></div>
+    <div class="product-card"><img src="mobile-samsung-7-29999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹29999</div><div class="product-name">Samsung Galaxy S21</div></div>
+    <div class="product-card"><img src="mobile-xiaomi-8-12999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹12999</div><div class="product-name">Xiaomi Redmi Note 10</div></div>
+    <div class="product-card"><img src="mobile-apple-9-49999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹49999</div><div class="product-name">iPhone 12</div></div>
+    <div class="product-card"><img src="mobile-samsung-10-34999.jpg" onclick="redirectToProduct(this)" alt=""><div class="product-price">₹34999</div><div class="product-name">Samsung Galaxy A72</div></div>
+  </div>
+  <div class="main-container">
+    <div class="filter-sidebar">
+      <h3>Filter Mobiles</h3>
+      <div class="filter-group">
+        <h4>Brand</h4>
+        <label><input type="checkbox" name="brand" value="Samsung"> Samsung</label>
+        <label><input type="checkbox" name="brand" value="Apple"> Apple</label>
+        <label><input type="checkbox" name="brand" value="Xiaomi"> Xiaomi</label>
+      </div>
+      <div class="filter-group">
+        <h4>Storage</h4>
+        <label><input type="checkbox" name="storage" value="64GB"> 64GB</label>
+        <label><input type="checkbox" name="storage" value="128GB"> 128GB</label>
+        <label><input type="checkbox" name="storage" value="256GB"> 256GB</label>
+      </div>
+      <div class="filter-group">
+        <h4>Color</h4>
+        <label><input type="checkbox" name="color" value="Black"> Black</label>
+        <label><input type="checkbox" name="color" value="Blue"> Blue</label>
+        <label><input type="checkbox" name="color" value="Silver"> Silver</label>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <label><input type="checkbox" name="price" value="0-10000"> ₹0 - ₹10,000</label>
+        <label><input type="checkbox" name="price" value="10001-20000"> ₹10,001 - ₹20,000</label>
+        <label><input type="checkbox" name="price" value="20001+"> ₹20,001+</label>
+      </div>
+      <div class="filter-group">
+        <h4>Operating System</h4>
+        <label><input type="checkbox" name="os" value="Android"> Android</label>
+        <label><input type="checkbox" name="os" value="iOS"> iOS</label>
+      </div>
+    </div>
+    <div class="items-container">
+      <h2>Mobile Phones</h2>
+      <div class="items-grid" id="items-grid"></div>
+    </div>
+  </div>
+  <footer class="footer">
+    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+    <p><i class="fas fa-envelope"></i> support@agmobiles.com</p>
+    <p><i class="fab fa-instagram"></i> <a href="https://instagram.com" target="_blank">@agmobiles</a></p>
+  </footer>
+  <script>
+    const mobileItems = [
+      { id: 1, name: 'Samsung Galaxy A52', price: 19999, imgSrc: 'mobile-samsung-1-19999.jpg', brand: 'Samsung', storage: '128GB', color: 'Blue', os: 'Android' },
+      { id: 2, name: 'Xiaomi Redmi 9', price: 9999, imgSrc: 'mobile-xiaomi-2-9999.jpg', brand: 'Xiaomi', storage: '64GB', color: 'Black', os: 'Android' },
+      { id: 3, name: 'iPhone 13', price: 59999, imgSrc: 'mobile-apple-3-59999.jpg', brand: 'Apple', storage: '128GB', color: 'Silver', os: 'iOS' },
+      { id: 4, name: 'Samsung Galaxy M32', price: 14999, imgSrc: 'mobile-samsung-4-14999.jpg', brand: 'Samsung', storage: '64GB', color: 'Blue', os: 'Android' },
+      { id: 5, name: 'Xiaomi Poco X3', price: 15999, imgSrc: 'mobile-xiaomi-5-15999.jpg', brand: 'Xiaomi', storage: '128GB', color: 'Black', os: 'Android' },
+      { id: 6, name: 'iPhone 14', price: 79999, imgSrc: 'mobile-apple-6-79999.jpg', brand: 'Apple', storage: '256GB', color: 'Silver', os: 'iOS' },
+      { id: 7, name: 'Samsung Galaxy S21', price: 29999, imgSrc: 'mobile-samsung-7-29999.jpg', brand: 'Samsung', storage: '128GB', color: 'Black', os: 'Android' },
+      { id: 8, name: 'Xiaomi Redmi Note 10', price: 12999, imgSrc: 'mobile-xiaomi-8-12999.jpg', brand: 'Xiaomi', storage: '64GB', color: 'Blue', os: 'Android' },
+      { id: 9, name: 'iPhone 12', price: 49999, imgSrc: 'mobile-apple-9-49999.jpg', brand: 'Apple', storage: '128GB', color: 'Silver', os: 'iOS' },
+      { id: 10, name: 'Samsung Galaxy A72', price: 34999, imgSrc: 'mobile-samsung-10-34999.jpg', brand: 'Samsung', storage: '256GB', color: 'Blue', os: 'Android' },
+      { id: 11, name: 'Xiaomi Mi 11', price: 39999, imgSrc: 'mobile-xiaomi-11-39999.jpg', brand: 'Xiaomi', storage: '128GB', color: 'Black', os: 'Android' },
+      { id: 12, name: 'iPhone 11', price: 44999, imgSrc: 'mobile-apple-12-44999.jpg', brand: 'Apple', storage: '64GB', color: 'Silver', os: 'iOS' },
+      { id: 13, name: 'Samsung Galaxy Z Fold', price: 149999, imgSrc: 'mobile-samsung-13-149999.jpg', brand: 'Samsung', storage: '256GB', color: 'Black', os: 'Android' },
+      { id: 14, name: 'Xiaomi Poco F3', price: 24999, imgSrc: 'mobile-xiaomi-14-24999.jpg', brand: 'Xiaomi', storage: '128GB', color: 'Blue', os: 'Android' },
+      { id: 15, name: 'iPhone 14 Pro', price: 99999, imgSrc: 'mobile-apple-15-99999.jpg', brand: 'Apple', storage: '256GB', color: 'Silver', os: 'iOS' },
+      { id: 16, name: 'Samsung Galaxy Note 20', price: 79999, imgSrc: 'mobile-samsung-16-79999.jpg', brand: 'Samsung', storage: '256GB', color: 'Black', os: 'Android' },
+      { id: 17, name: 'Xiaomi Redmi Note 10', price: 12999, imgSrc: 'mobile-xiaomi-17-12999.jpg', brand: 'Xiaomi', storage: '64GB', color: 'Blue', os: 'Android' }
+    ];
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function addToCart(itemId) {
+      const item = mobileItems.find(i => i.id === itemId);
+      if (!item) return;
+      const cart = getCart();
+      const existingItem = cart.find(i => i.id === itemId);
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+      saveCart(cart);
+      updateCartCount();
+      alert(`${item.name} added to cart!`);
+    }
+    function filterItems() {
+      const filters = {
+        brand: Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(input => input.value),
+        storage: Array.from(document.querySelectorAll('input[name="storage"]:checked')).map(input => input.value),
+        color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(input => input.value),
+        price: Array.from(document.querySelectorAll('input[name="price"]:checked')).map(input => input.value),
+        os: Array.from(document.querySelectorAll('input[name="os"]:checked')).map(input => input.value)
+      };
+      const filteredItems = mobileItems.filter(item => {
+        const matchesBrand = filters.brand.length === 0 || filters.brand.includes(item.brand);
+        const matchesStorage = filters.storage.length === 0 || filters.storage.includes(item.storage);
+        const matchesColor = filters.color.length === 0 || filters.color.includes(item.color);
+        const matchesOS = filters.os.length === 0 || filters.os.includes(item.os);
+        const matchesPrice = filters.price.length === 0 || filters.price.some(range => {
+          const price = parseFloat(item.price);
+          if (range === '0-10000') return price <= 10000;
+          if (range === '10001-20000') return price > 10000 && price <= 20000;
+          if (range === '20001+') return price > 20000;
+          return false;
+        });
+        return matchesBrand && matchesStorage && matchesColor && matchesPrice && matchesOS;
+      });
+      displayItems(filteredItems);
+    }
+    function displayItems(items) {
+      const itemsGrid = document.getElementById('items-grid');
+      itemsGrid.innerHTML = '';
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'item-card';
+        div.innerHTML = `
+          <img src="${item.imgSrc}" alt="${item.name}" onclick="redirectToProduct(this)"/>
+          <h3>${item.name}</h3>
+          <p>Price: ₹${item.price}</p>
+          <p>Storage: ${item.storage}</p>
+          <p>Color: ${item.color}</p>
+          <p>OS: ${item.os}</p>
+          <button onclick="addToCart(${item.id})">Add to Cart</button>
+        `;
+        itemsGrid.appendChild(div);
+      });
+    }
+    function redirectToProduct(imgElement) {
+      const card = imgElement.parentElement;
+      const imgSrc = imgElement.src;
+      const name = card.querySelector('.product-name') ? card.querySelector('.product-name').textContent : card.querySelector('h3').textContent;
+      const price = card.querySelector('.product-price') ? card.querySelector('.product-price').textContent : card.querySelector('p').textContent.replace('Price: ', '');
+      const params = new URLSearchParams({
+        img: imgSrc,
+        name: name,
+        price: price
+      });
+      window.location.href = `product.html?${params.toString()}`;
+    }
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.trim();
+      if (query) {
+        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+    document.getElementById('search-button').addEventListener('click', handleSearch);
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
+    });
+    document.getElementById('cart-icon').addEventListener('click', () => {
+      window.location.href = 'cart.html';
+    });
+    document.querySelectorAll('.filter-group input').forEach(input => {
+      input.addEventListener('change', filterItems);
+    });
+    window.onload = () => {
+      displayItems(mobileItems);
+      updateCartCount();
+    };
+  </script>
+</body>
+</html>
